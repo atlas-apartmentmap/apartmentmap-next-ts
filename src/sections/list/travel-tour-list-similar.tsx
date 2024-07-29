@@ -27,7 +27,7 @@ export default function TravelTourListSimilar({ tours }: Props) {
   const viewAllBtn = (
     <Button
       component={RouterLink}
-      href={paths.travel.tours}
+      href={paths.units}
       color="inherit"
       endIcon={<Iconify icon="carbon:chevron-right" />}
     >

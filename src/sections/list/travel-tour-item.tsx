@@ -104,7 +104,7 @@ export default function TravelTourItem({ tour }: Props) {
           {location}
         </Typography>
 
-        <Link component={RouterLink} href={paths.travel.tour} color="inherit">
+        <Link component={RouterLink} href={paths.unit} color="inherit">
           <TextMaxLine variant="h6" persistent>
             {slug}
           </TextMaxLine>
