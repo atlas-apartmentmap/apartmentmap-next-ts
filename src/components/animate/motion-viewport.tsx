@@ -22,7 +22,7 @@ export default function MotionViewport({
   const smDown = useResponsive('down', 'sm');
 
   if (smDown && disableAnimatedMobile) {
-    return <Box>{children}</Box>;
+    return <Box {...other}>{children}</Box>;
   }
 
   return (
@@ -32,6 +32,7 @@ export default function MotionViewport({
       whileInView="animate"
       viewport={{ once: true, amount: 0.3 }}
       variants={varContainer()}
+      {...other}
     >
       {children}
     </Box>
