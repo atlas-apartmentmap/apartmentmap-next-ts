@@ -18,12 +18,11 @@ interface Props extends IProps {
 export default function MotionViewport({
   children,
   disableAnimatedMobile = true,
-  ...other
 }: Props) {
   const smDown = useResponsive('down', 'sm');
 
   if (smDown && disableAnimatedMobile) {
-    return <Box {...other}>{children}</Box>;
+    return <Box>{children}</Box>;
   }
 
   return (
@@ -33,7 +32,6 @@ export default function MotionViewport({
       whileInView="animate"
       viewport={{ once: true, amount: 0.3 }}
       variants={varContainer()}
-      {...other}
     >
       {children}
     </Box>
