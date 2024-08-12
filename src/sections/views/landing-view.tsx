@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import Box from "@mui/material/Box";
-import { alpha } from "@mui/material/styles";
-import Container from "@mui/material/Container";
+import Box from '@mui/material/Box';
+import { alpha } from '@mui/material/styles';
+import Container from '@mui/material/Container';
 
 // _travelPosts, _testimonials
-import { _tours } from "@/_mock";
+import { _tours } from '@/_mock';
 
 // import TravelNewsletter from '../travel-newsletter';
-import TravelFilters from "../filters/travel-filters";
-import TravelLandingHero from "../landing/travel-landing-hero";
+import TravelFilters from '../filters/travel-filters';
+import TravelLandingHero from '../landing/travel-landing-hero';
 // import TravelTestimonial from '../testimonial/travel-testimonial';
 // import TravelLandingSummary from '../landing/travel-landing-summary';
 // import TravelLandingIntroduce from '../landing/travel-landing-introduce';
@@ -23,7 +23,7 @@ import TravelLandingHero from "../landing/travel-landing-hero";
 export default function TravelLandingView() {
   return (
     <>
-      <Box sx={{ position: "relative" }}>
+      <Box sx={{ position: 'relative' }}>
         <TravelLandingHero tours={_tours.slice(0, 5)} />
 
         <Container
@@ -32,16 +32,16 @@ export default function TravelLandingView() {
             left: { md: 0 },
             right: { md: 0 },
             bottom: { md: 0 },
-            mx: { md: "auto" },
+            mx: { md: 'auto' },
             pt: { xs: 3, md: 0 },
-            position: { md: "absolute" },
+            position: { md: 'absolute' },
           }}
         >
           <TravelFilters
             sx={{
-              color: { md: "common.white" },
+              color: { md: 'common.white' },
               bgcolor: (theme) => ({
-                xs: "background.white",
+                xs: 'background.white',
                 md: alpha(theme.palette.common.white, 1),
               }),
             }}

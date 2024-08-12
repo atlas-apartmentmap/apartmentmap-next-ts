@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
-import { useBoolean } from "@/hooks/use-boolean";
+import { useBoolean } from '@/hooks/use-boolean';
 
 // _socials
 
 // import Iconify from '@/components/iconify';
-import { SplashScreen } from "@/components/loading-screen";
+import { SplashScreen } from '@/components/loading-screen';
 // import CustomBreadcrumbs from '@/components/custom-breadcrumbs';
 
 // import TravelNewsletter from '../travel-newsletter';

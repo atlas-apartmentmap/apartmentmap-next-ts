@@ -1,12 +1,12 @@
-import Chip from "@mui/material/Chip";
-import TextField from "@mui/material/TextField";
-import InputAdornment from "@mui/material/InputAdornment";
-import { filledInputClasses } from "@mui/material/FilledInput";
-import Autocomplete, { AutocompleteProps } from "@mui/material/Autocomplete";
+import Chip from '@mui/material/Chip';
+import TextField from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
+import { filledInputClasses } from '@mui/material/FilledInput';
+import Autocomplete, { AutocompleteProps } from '@mui/material/Autocomplete';
 
-import { countries } from "@/assets/data";
+import { countries } from '@/assets/data';
 
-import Iconify from "@/components/iconify";
+import Iconify from '@/components/iconify';
 
 // ----------------------------------------------------------------------
 
@@ -35,7 +35,7 @@ export default function CountrySelect<
   hiddenLabel,
   placeholder,
   ...other
-}: Omit<Props<T, Multiple, DisableClearable, FreeSolo>, "renderInput">) {
+}: Omit<Props<T, Multiple, DisableClearable, FreeSolo>, 'renderInput'>) {
   const { multiple } = other;
 
   return (
@@ -72,7 +72,7 @@ export default function CountrySelect<
           hiddenLabel,
           inputProps: {
             ...params.inputProps,
-            autoComplete: "new-password",
+            autoComplete: 'new-password',
           },
         };
 
@@ -90,7 +90,7 @@ export default function CountrySelect<
                   position="start"
                   sx={{
                     ...(!country.code && {
-                      display: "none",
+                      display: 'none',
                     }),
                   }}
                 >
@@ -104,7 +104,7 @@ export default function CountrySelect<
             sx={{
               ...(!hiddenLabel && {
                 [`& .${filledInputClasses.root}`]: {
-                  "& .component-iconify": {
+                  '& .component-iconify': {
                     mt: -2,
                   },
                 },
@@ -122,9 +122,7 @@ export default function CountrySelect<
               {...getTagProps({ index })}
               key={country.label}
               label={country.label}
-              icon={
-                <Iconify icon={`circle-flags:${country.code?.toLowerCase()}`} />
-              }
+              icon={<Iconify icon={`circle-flags:${country.code?.toLowerCase()}`} />}
               size="small"
               variant="soft"
             />

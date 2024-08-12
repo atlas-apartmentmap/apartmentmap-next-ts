@@ -1,14 +1,14 @@
-import { ReactPlayerProps } from "react-player";
+import { ReactPlayerProps } from 'react-player';
 
-import Dialog from "@mui/material/Dialog";
-import { alpha } from "@mui/material/styles";
-import IconButton from "@mui/material/IconButton";
-import CircularProgress from "@mui/material/CircularProgress";
+import Dialog from '@mui/material/Dialog';
+import { alpha } from '@mui/material/styles';
+import IconButton from '@mui/material/IconButton';
+import CircularProgress from '@mui/material/CircularProgress';
 
-import { useBoolean } from "@/hooks/use-boolean";
+import { useBoolean } from '@/hooks/use-boolean';
 
-import Iconify from "../iconify";
-import { StyledReactPlayer } from "./styles";
+import Iconify from '../iconify';
+import { StyledReactPlayer } from './styles';
 
 // ----------------------------------------------------------------------
 
@@ -18,12 +18,7 @@ interface Props extends ReactPlayerProps {
   onClose: VoidFunction;
 }
 
-export default function PlayerDialog({
-  videoPath,
-  open,
-  onClose,
-  ...other
-}: Props) {
+export default function PlayerDialog({ videoPath, open, onClose, ...other }: Props) {
   const loading = useBoolean(true);
 
   return (
@@ -31,7 +26,7 @@ export default function PlayerDialog({
       fullScreen
       open={open}
       PaperProps={{
-        sx: { bgcolor: "unset" },
+        sx: { bgcolor: 'unset' },
       }}
     >
       <IconButton
@@ -41,10 +36,10 @@ export default function PlayerDialog({
           top: 24,
           right: 24,
           zIndex: 9,
-          position: "fixed",
+          position: 'fixed',
           color: (theme) => alpha(theme.palette.common.white, 0.72),
           bgcolor: (theme) => alpha(theme.palette.common.white, 0.08),
-          "&:hover": {
+          '&:hover': {
             bgcolor: (theme) => alpha(theme.palette.common.white, 0.16),
           },
         }}
@@ -59,8 +54,8 @@ export default function PlayerDialog({
             left: 0,
             right: 0,
             bottom: 0,
-            m: "auto",
-            position: "absolute",
+            m: 'auto',
+            position: 'absolute',
           }}
         />
       )}

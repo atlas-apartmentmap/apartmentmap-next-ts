@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import AuthBackgroundLayout from "@/layouts/auth/background";
+import AuthBackgroundLayout from '@/layouts/auth/background';
 
 // ----------------------------------------------------------------------
 

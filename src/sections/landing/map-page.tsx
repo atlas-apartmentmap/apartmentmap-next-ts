@@ -1,95 +1,46 @@
-import { useEffect } from "react";
+import React, { useState, useEffect } from 'react';
+import { Canvas } from '@react-three/fiber';
+import { OrbitControls, useGLTF } from '@react-three/drei';
+import * as THREE from 'three';
+import MapSidePanel from '@/components/map-side-panel/map-side-panel';
+import MapScene from '@/components/map-scene/map-scene';
 
-import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import { alpha, useTheme } from "@mui/material/styles";
+const CBDViewer: React.FC = () => {
+  // State for land visibility and hover state
+  const [showLand, setShowLand] = useState(true);
+  const [hoveredBuilding, setHoveredBuilding] = useState<string | null>(null);
 
-import Image from "@/components/image";
-
-// ----------------------------------------------------------------------
-
-export default function MapPage() {
-  return (
-    <Box
-      sx={{
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        position: "relative",
-      }}
-    >
-      <MapSection />
-    </Box>
-  );
-}
-
-// ----------------------------------------------------------------------
-
-function MapSection() {
-  const theme = useTheme();
-
-  const renderOverlay = (
-    <Box
-      sx={{
-        background: `linear-gradient(to bottom, ${alpha(theme.palette.common.black, 0)} 0%, ${theme.palette.common.black} 75%)`,
-        top: 0,
-        left: 0,
-        zIndex: 8,
-        width: 1,
-        height: 1,
-        position: "absolute",
-      }}
-    />
-  );
+  // Toggle land visibility handler
+  const toggleLandVisibility = () => {
+    setShowLand(!showLand);
+  };
 
   return (
-    <Box
-      sx={{
-        position: "relative",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        textAlign: "center",
-        color: "common.white",
-      }}
-    >
-      <Stack
-        spacing={5}
-        sx={{
-          zIndex: 9,
-          position: "relative",
-          maxWidth: 480,
-          padding: { xs: 2, md: 0 },
-        }}
-      >
-        <Typography variant="h2">Welcome to My Website</Typography>
-        <Typography variant="h6">
-          Discover amazing content and stay updated with the latest trends.
-        </Typography>
-        <Button variant="contained" size="large" color="primary">
-          Get Started
-        </Button>
-      </Stack>
-      <Box
-        sx={{
-          width: 1,
-          height: 1,
-          position: "absolute",
-        }}
-      >
-        {renderOverlay}
-        <Image
-          alt="hero"
-          src="https://source.unsplash.com/random"
-          sx={{
-            width: 1,
-            height: "100vh",
-          }}
+    <div style={{ display: 'flex', width: '100%', height: '100vh' }}>
+      <div style={{ flex: 4 }}>
+        <Canvas
+          style={{ height: '100%', width: '100%' }}
+          camera={{ position: [100, 100, 100], fov: 50 }}
+        >
+          <MapScene showLand={showLand} hoveredBuilding={hoveredBuilding} />
+          <OrbitControls
+            enableDamping={true}
+            dampingFactor={0.25}
+            screenSpacePanning={true}
+            minDistance={5}
+            maxDistance={1000}
+            maxPolarAngle={Math.PI / 2.1}
+          />
+        </Canvas>
+      </div>
+      <div style={{ flex: 1, backgroundColor: '#f0f0f0' }}>
+        <MapSidePanel
+          onToggleLandVisibility={toggleLandVisibility}
+          setHoveredBuilding={setHoveredBuilding}
         />
-      </Box>
-    </Box>
+      </div>
+    </div>
   );
-}
+};
+
+export default CBDViewer;

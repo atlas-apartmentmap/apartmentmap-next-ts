@@ -1,22 +1,19 @@
-import { forwardRef } from "react";
+import { forwardRef } from 'react';
 
-import Box from "@mui/material/Box";
-import Link from "@mui/material/Link";
-import { alpha, styled } from "@mui/material/styles";
-import ListItemButton from "@mui/material/ListItemButton";
+import Box from '@mui/material/Box';
+import Link from '@mui/material/Link';
+import { alpha, styled } from '@mui/material/styles';
+import ListItemButton from '@mui/material/ListItemButton';
 
-import { RouterLink } from "@/routes/components";
+import { RouterLink } from '@/routes/components';
 
-import Iconify from "../../iconify";
-import { NavItemProps, NavItemStateProps } from "../types";
+import Iconify from '../../iconify';
+import { NavItemProps, NavItemStateProps } from '../types';
 
 // ----------------------------------------------------------------------
 
 const NavItem = forwardRef<HTMLDivElement, NavItemProps>(
-  (
-    { title, path, icon, open, active, hasChild, externalLink, ...other },
-    ref
-  ) => {
+  ({ title, path, icon, open, active, hasChild, externalLink, ...other }, ref) => {
     const renderContent = (
       <StyledNavItem ref={ref} open={open} active={active} {...other}>
         {icon && (
@@ -31,25 +28,13 @@ const NavItem = forwardRef<HTMLDivElement, NavItemProps>(
           </Box>
         )}
 
-        {hasChild && (
-          <Iconify
-            width={16}
-            className="arrow"
-            icon="eva:arrow-ios-forward-fill"
-          />
-        )}
+        {hasChild && <Iconify width={16} className="arrow" icon="eva:arrow-ios-forward-fill" />}
       </StyledNavItem>
     );
 
     if (externalLink)
       return (
-        <Link
-          href={path}
-          target="_blank"
-          rel="noopener"
-          underline="none"
-          color="inherit"
-        >
+        <Link href={path} target="_blank" rel="noopener" underline="none" color="inherit">
           {renderContent}
         </Link>
       );
@@ -67,7 +52,7 @@ export default NavItem;
 // ----------------------------------------------------------------------
 
 const StyledNavItem = styled(ListItemButton, {
-  shouldForwardProp: (prop) => prop !== "active",
+  shouldForwardProp: (prop) => prop !== 'active',
 })<NavItemStateProps>(({ active, open, theme }) => {
   const opened = open && !active;
 
@@ -76,23 +61,23 @@ const StyledNavItem = styled(ListItemButton, {
     paddingLeft: theme.spacing(2.5),
     paddingRight: theme.spacing(1.5),
     fontWeight: theme.typography.fontWeightMedium,
-    "& .icon": {
+    '& .icon': {
       width: 20,
       height: 20,
       flexShrink: 0,
       marginRight: theme.spacing(2),
     },
-    "& .label": {
+    '& .label': {
       flexGrow: 1,
     },
-    "& .arrow": {
+    '& .arrow': {
       marginLeft: theme.spacing(0.75),
     },
     ...(active && {
       color: theme.palette.primary.main,
       fontWeight: theme.typography.fontWeightSemiBold,
       backgroundColor: alpha(theme.palette.primary.main, 0.08),
-      "&:hover": {
+      '&:hover': {
         backgroundColor: alpha(theme.palette.primary.main, 0.16),
       },
     }),

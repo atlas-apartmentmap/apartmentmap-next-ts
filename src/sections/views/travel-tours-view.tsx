@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
-import { useBoolean } from "@/hooks/use-boolean";
+import { useBoolean } from '@/hooks/use-boolean';
 
 // import TravelNewsletter from '../travel-newsletter';
 // import TravelTourList from '../list/travel-tour-list';

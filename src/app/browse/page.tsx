@@ -1,9 +1,9 @@
-import TravelLandingView from "@/sections/views/landing-view";
+import TravelLandingView from '@/sections/views/landing-view';
 
 // ----------------------------------------------------------------------
 
 export const metadata = {
-  title: "Travel: Browse",
+  title: 'Browse',
 };
 
 export default async function TravelLandingPage() {

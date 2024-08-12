@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import isEqual from "lodash.isequal";
-import { useMemo, useState, useCallback } from "react";
+import isEqual from 'lodash.isequal';
+import { useMemo, useState, useCallback } from 'react';
 
-import { useLocalStorage } from "@/hooks/use-local-storage";
+import { useLocalStorage } from '@/hooks/use-local-storage';
 
-import { SettingsValueProps } from "../types";
-import { SettingsContext } from "./settings-context";
+import { SettingsValueProps } from '../types';
+import { SettingsContext } from './settings-context';
 
 // ----------------------------------------------------------------------
 
-const STORAGE_KEY = "settings";
+const STORAGE_KEY = 'settings';
 
 type Props = {
   children: React.ReactNode;
@@ -18,10 +18,7 @@ type Props = {
 };
 
 export function SettingsProvider({ children, defaultSettings }: Props) {
-  const { state, update, reset } = useLocalStorage(
-    STORAGE_KEY,
-    defaultSettings
-  );
+  const { state, update, reset } = useLocalStorage(STORAGE_KEY, defaultSettings);
 
   const [openDrawer, setOpenDrawer] = useState(false);
 
@@ -51,9 +48,5 @@ export function SettingsProvider({ children, defaultSettings }: Props) {
     [canReset, onCloseDrawer, onToggleDrawer, openDrawer, reset, state, update]
   );
 
-  return (
-    <SettingsContext.Provider value={memoizedValue}>
-      {children}
-    </SettingsContext.Provider>
-  );
+  return <SettingsContext.Provider value={memoizedValue}>{children}</SettingsContext.Provider>;
 }

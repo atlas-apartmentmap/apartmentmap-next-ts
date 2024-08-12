@@ -117,7 +117,7 @@ export const navConfig = [
   // {title: 'Vision', path: '/vision'},
   { title: '3D Viewer', path: '/3DViewer' },
   { title: 'Map', path: '/maps' },
-  { title: 'My Properties', path: '/myproperties' },
+  { title: 'My Properties', path: '/myProperties' },
   // {title: 'BrowseSkyTower', path: '/browse/skytower'},
 
   // { title: 'Test', path: '/' },

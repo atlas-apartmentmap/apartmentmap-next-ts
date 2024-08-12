@@ -1,23 +1,23 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback } from 'react';
 
-import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import Link from "@mui/material/Link";
-import Stack from "@mui/material/Stack";
-import Divider from "@mui/material/Divider";
-import Checkbox from "@mui/material/Checkbox";
-import Typography from "@mui/material/Typography";
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import Link from '@mui/material/Link';
+import Stack from '@mui/material/Stack';
+import Divider from '@mui/material/Divider';
+import Checkbox from '@mui/material/Checkbox';
+import Typography from '@mui/material/Typography';
 
-import { paths } from "@/routes/paths";
-import { RouterLink } from "@/routes/components";
+import { paths } from '@/routes/paths';
+import { RouterLink } from '@/routes/components';
 
-import { fCurrency } from "@/utils/format-number";
+import { fCurrency } from '@/utils/format-number';
 
-import Image from "@/components/image";
-import Iconify from "@/components/iconify";
-import TextMaxLine from "@/components/text-max-line";
+import Image from '@/components/image';
+import Iconify from '@/components/iconify';
+import TextMaxLine from '@/components/text-max-line';
 
-import { ITourProps } from "@/types/tour";
+import { ITourProps } from '@/types/tour';
 
 // ----------------------------------------------------------------------
 
@@ -26,24 +26,13 @@ type Props = {
 };
 
 export default function TravelTourItem({ tour }: Props) {
-  const {
-    slug,
-    location,
-    price,
-    priceSale,
-    favorited,
-    ratingNumber,
-    coverUrl,
-  } = tour;
+  const { slug, location, price, priceSale, favorited, ratingNumber, coverUrl } = tour;
 
   const [favorite, setFavorite] = useState(favorited);
 
-  const handleChangeFavorite = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      setFavorite(event.target.checked);
-    },
-    []
-  );
+  const handleChangeFavorite = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    setFavorite(event.target.checked);
+  }, []);
 
   return (
     <Card>
@@ -58,7 +47,7 @@ export default function TravelTourItem({ tour }: Props) {
           top: 0,
           width: 1,
           zIndex: 9,
-          position: "absolute",
+          position: 'absolute',
         }}
       >
         <Stack
@@ -67,17 +56,16 @@ export default function TravelTourItem({ tour }: Props) {
           sx={{
             px: 1,
             borderRadius: 0.75,
-            typography: "subtitle2",
-            bgcolor: "text.primary",
-            color: (theme) =>
-              theme.palette.mode === "light" ? "common.white" : "grey.800",
+            typography: 'subtitle2',
+            bgcolor: 'text.primary',
+            color: (theme) => (theme.palette.mode === 'light' ? 'common.white' : 'grey.800'),
           }}
         >
           {priceSale > 0 && (
             <Box
               sx={{
-                color: "grey.500",
-                textDecoration: "line-through",
+                color: 'grey.500',
+                textDecoration: 'line-through',
                 mr: 0.5,
               }}
             >
@@ -93,42 +81,40 @@ export default function TravelTourItem({ tour }: Props) {
           onChange={handleChangeFavorite}
           icon={<Iconify icon="carbon:favorite" />}
           checkedIcon={<Iconify icon="carbon:favorite-filled" />}
-          sx={{ color: "common.white" }}
+          sx={{ color: 'common.white' }}
         />
       </Stack>
 
       <Image alt={slug} src={coverUrl} ratio="1/1" />
 
       <Stack spacing={0.5} sx={{ p: 2.5 }}>
-        <Typography variant="body2" sx={{ color: "text.secondary" }}>
+        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
           {location}
         </Typography>
 
-        <Link component={RouterLink} href={paths.unit} color="inherit">
+        <Link component={RouterLink} href={paths.travel.tour} color="inherit">
           <TextMaxLine variant="h6" persistent>
             {slug}
           </TextMaxLine>
         </Link>
       </Stack>
 
-      <Divider sx={{ borderStyle: "dashed" }} />
+      <Divider sx={{ borderStyle: 'dashed' }} />
 
       <Stack direction="row" alignItems="center" sx={{ p: 2.5 }}>
         <Stack
           flexGrow={1}
           direction="row"
           alignItems="center"
-          sx={{ typography: "body2", color: "text.disabled" }}
+          sx={{ typography: 'body2', color: 'text.disabled' }}
         >
           {/* <Iconify icon="carbon:time" width={16} sx={{ mr: 1 }} /> {duration} */}
         </Stack>
 
         <Stack spacing={0.5} direction="row" alignItems="center">
-          <Iconify icon="carbon:star-filled" sx={{ color: "warning.main" }} />
-          <Box sx={{ typography: "h6" }}>
-            {Number.isInteger(ratingNumber)
-              ? `${ratingNumber}.0`
-              : ratingNumber}
+          <Iconify icon="carbon:star-filled" sx={{ color: 'warning.main' }} />
+          <Box sx={{ typography: 'h6' }}>
+            {Number.isInteger(ratingNumber) ? `${ratingNumber}.0` : ratingNumber}
           </Box>
         </Stack>
       </Stack>

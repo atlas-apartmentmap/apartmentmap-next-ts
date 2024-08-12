@@ -371,6 +371,14 @@ export const _tourNames = [
   'Nightlife and Entertainment Tour',
 ];
 
+
+export const _buildingNames = [
+  'Aurora Tower',
+  'Spire Residence',
+  'Festival Towers',
+  "Sky Tower",
+  'Infinity Tower',
+];
 // ----------------------------------------------------------------------
 
 export const _jobTitles = [

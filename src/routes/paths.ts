@@ -14,6 +14,7 @@ export const paths = {
   browseSkyTower: '/browse/skytower',
   vision: '/vision',
   maps: '/maps',
+  myProperties: '/myProperties',
   // comingsoon: '/coming-soon',
   // pricing01: '/pricing-01',
   // pricing02: '/pricing-02',

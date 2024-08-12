@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { m } from "framer-motion";
+import { m } from 'framer-motion';
 
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
-import { RouterLink } from "@/routes/components";
+import { RouterLink } from '@/routes/components';
 
-import CompactLayout from "@/layouts/compact";
+import CompactLayout from '@/layouts/compact';
 
-import Image from "@/components/image";
-import { varBounce, MotionContainer } from "@/components/animate";
+import Image from '@/components/image';
+import { varBounce, MotionContainer } from '@/components/animate';
 
 // ----------------------------------------------------------------------
 
@@ -25,9 +25,9 @@ export default function NotFoundView() {
         </m.div>
 
         <m.div variants={varBounce().in}>
-          <Typography sx={{ color: "text.secondary" }}>
-            Sorry, we couldn’t find the page you’re looking for. Perhaps you’ve
-            mistyped the URL? Be sure to check your spelling.
+          <Typography sx={{ color: 'text.secondary' }}>
+            Sorry, we couldn’t find the page you’re looking for. Perhaps you’ve mistyped the URL? Be
+            sure to check your spelling.
           </Typography>
         </m.div>
 
@@ -36,20 +36,14 @@ export default function NotFoundView() {
             alt="404"
             src="/assets/illustrations/illustration_404.svg"
             sx={{
-              mx: "auto",
+              mx: 'auto',
               maxWidth: 320,
               my: { xs: 5, sm: 8 },
             }}
           />
         </m.div>
 
-        <Button
-          component={RouterLink}
-          href="/"
-          size="large"
-          color="inherit"
-          variant="contained"
-        >
+        <Button component={RouterLink} href="/" size="large" color="inherit" variant="contained">
           Go to Home
         </Button>
       </MotionContainer>

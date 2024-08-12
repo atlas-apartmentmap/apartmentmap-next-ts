@@ -24,7 +24,7 @@ const ObjectInfoBox: React.FC<ObjectInfoBoxProps> = ({ objectName }) => {
       borderRadius={1}
       zIndex="tooltip"
     >
-      Hovered over: {objectName}
+      {objectName}
     </Box>
   );
 };

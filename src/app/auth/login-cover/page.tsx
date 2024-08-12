@@ -1,9 +1,9 @@
-import LoginCoverView from "@/sections/auth/login-cover-view";
+import LoginCoverView from '@/sections/auth/login-cover-view';
 
 // ----------------------------------------------------------------------
 
 export const metadata = {
-  title: "Login: Cover",
+  title: 'Login: Cover',
 };
 
 export default function LoginCoverPage() {

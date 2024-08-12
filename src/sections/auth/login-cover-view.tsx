@@ -1,26 +1,26 @@
-"use client";
+'use client';
 
-import * as Yup from "yup";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from 'yup';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 
-import Link from "@mui/material/Link";
-import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
-import Divider from "@mui/material/Divider";
-import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
-import LoadingButton from "@mui/lab/LoadingButton";
-import InputAdornment from "@mui/material/InputAdornment";
+import Link from '@mui/material/Link';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import Divider from '@mui/material/Divider';
+import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+import LoadingButton from '@mui/lab/LoadingButton';
+import InputAdornment from '@mui/material/InputAdornment';
 
-import { paths } from "@/routes/paths";
-import { RouterLink } from "@/routes/components";
+import { paths } from '@/routes/paths';
+import { RouterLink } from '@/routes/components';
 
-import { useBoolean } from "@/hooks/use-boolean";
+import { useBoolean } from '@/hooks/use-boolean';
 
-import Logo from "@/components/logo";
-import Iconify from "@/components/iconify";
-import FormProvider, { RHFTextField } from "@/components/hook-form";
+import Logo from '@/components/logo';
+import Iconify from '@/components/iconify';
+import FormProvider, { RHFTextField } from '@/components/hook-form';
 
 // ----------------------------------------------------------------------
 
@@ -28,17 +28,15 @@ export default function LoginCoverView() {
   const passwordShow = useBoolean();
 
   const LoginSchema = Yup.object().shape({
-    email: Yup.string()
-      .required("Email is required")
-      .email("That is not an email"),
+    email: Yup.string().required('Email is required').email('That is not an email'),
     password: Yup.string()
-      .required("Password is required")
-      .min(6, "Password should be of minimum 6 characters length"),
+      .required('Password is required')
+      .min(6, 'Password should be of minimum 6 characters length'),
   });
 
   const defaultValues = {
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   };
 
   const methods = useForm({
@@ -56,7 +54,7 @@ export default function LoginCoverView() {
     try {
       await new Promise((resolve) => setTimeout(resolve, 500));
       reset();
-      console.log("DATA", data);
+      console.log('DATA', data);
     } catch (error) {
       console.error(error);
     }
@@ -67,21 +65,16 @@ export default function LoginCoverView() {
       sx={{
         pb: 5,
         pt: { xs: 5, md: 10 },
-        textAlign: { xs: "center", md: "left" },
+        textAlign: { xs: 'center', md: 'left' },
       }}
     >
       <Typography variant="h3" paragraph>
         Login
       </Typography>
 
-      <Typography variant="body2" sx={{ color: "text.secondary" }}>
+      <Typography variant="body2" sx={{ color: 'text.secondary' }}>
         {`Don’t have an account? `}
-        <Link
-          component={RouterLink}
-          href={paths.registerCover}
-          variant="subtitle2"
-          color="primary"
-        >
+        <Link component={RouterLink} href={paths.registerCover} variant="subtitle2" color="primary">
           Get started
         </Link>
       </Typography>
@@ -95,19 +88,11 @@ export default function LoginCoverView() {
       </Button>
 
       <Button fullWidth size="large" color="inherit" variant="outlined">
-        <Iconify
-          icon="carbon:logo-facebook"
-          width={24}
-          sx={{ color: "#1877F2" }}
-        />
+        <Iconify icon="carbon:logo-facebook" width={24} sx={{ color: '#1877F2' }} />
       </Button>
 
       <Button color="inherit" fullWidth variant="outlined" size="large">
-        <Iconify
-          icon="carbon:logo-github"
-          width={24}
-          sx={{ color: "text.primary" }}
-        />
+        <Iconify icon="carbon:logo-github" width={24} sx={{ color: 'text.primary' }} />
       </Button>
     </Stack>
   );
@@ -120,16 +105,12 @@ export default function LoginCoverView() {
         <RHFTextField
           name="password"
           label="Password"
-          type={passwordShow.value ? "text" : "password"}
+          type={passwordShow.value ? 'text' : 'password'}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
                 <IconButton onClick={passwordShow.onToggle} edge="end">
-                  <Iconify
-                    icon={
-                      passwordShow.value ? "carbon:view" : "carbon:view-off"
-                    }
-                  />
+                  <Iconify icon={passwordShow.value ? 'carbon:view' : 'carbon:view-off'} />
                 </IconButton>
               </InputAdornment>
             ),
@@ -169,7 +150,7 @@ export default function LoginCoverView() {
       {renderSocials}
 
       <Divider sx={{ py: 3 }}>
-        <Typography variant="body2" sx={{ color: "text.disabled" }}>
+        <Typography variant="body2" sx={{ color: 'text.disabled' }}>
           OR
         </Typography>
       </Divider>

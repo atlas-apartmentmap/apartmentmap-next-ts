@@ -3,7 +3,7 @@ import HomeView from "@/sections/views/home-view";
 // ----------------------------------------------------------------------
 
 export const metadata = {
-  title: "Travel: Home",
+  title: 'Apartment Map',
 };
 
 export default async function HomePage() {

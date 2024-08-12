@@ -1,12 +1,12 @@
-import Chip from "@mui/material/Chip";
-import TextField from "@mui/material/TextField";
-import InputAdornment from "@mui/material/InputAdornment";
-import { filledInputClasses } from "@mui/material/FilledInput";
-import Autocomplete, { AutocompleteProps } from "@mui/material/Autocomplete";
+import Chip from '@mui/material/Chip';
+import TextField from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
+import { filledInputClasses } from '@mui/material/FilledInput';
+import Autocomplete, { AutocompleteProps } from '@mui/material/Autocomplete';
 
-import { apartments } from "@/assets/data";
+import { apartments } from '@/assets/data';
 
-import Iconify from "@/components/iconify";
+import Iconify from '@/components/iconify';
 
 // ----------------------------------------------------------------------
 
@@ -35,7 +35,7 @@ export default function ApartmentSelect<
   hiddenLabel,
   placeholder,
   ...other
-}: Omit<Props<T, Multiple, DisableClearable, FreeSolo>, "renderInput">) {
+}: Omit<Props<T, Multiple, DisableClearable, FreeSolo>, 'renderInput'>) {
   const { multiple } = other;
 
   return (
@@ -51,11 +51,7 @@ export default function ApartmentSelect<
 
         return (
           <li {...props} key={apartment.label}>
-            <Iconify
-              key={apartment.label}
-              icon="mdi:home-city"
-              sx={{ mr: 1 }}
-            />
+            <Iconify key={apartment.label} icon="mdi:home-city" sx={{ mr: 1 }} />
             {apartment.label}
           </li>
         );
@@ -72,7 +68,7 @@ export default function ApartmentSelect<
           hiddenLabel,
           inputProps: {
             ...params.inputProps,
-            autoComplete: "new-password",
+            autoComplete: 'new-password',
           },
         };
 
@@ -90,7 +86,7 @@ export default function ApartmentSelect<
                   position="start"
                   sx={{
                     ...(!apartment.label && {
-                      display: "none",
+                      display: 'none',
                     }),
                   }}
                 >
@@ -101,7 +97,7 @@ export default function ApartmentSelect<
             sx={{
               ...(!hiddenLabel && {
                 [`& .${filledInputClasses.root}`]: {
-                  "& .component-iconify": {
+                  '& .component-iconify': {
                     mt: -2,
                   },
                 },
@@ -134,9 +130,7 @@ export default function ApartmentSelect<
 // ----------------------------------------------------------------------
 
 export function getApartment(inputValue: string) {
-  const option = apartments.filter(
-    (apartment) => apartment.label === inputValue
-  )[0];
+  const option = apartments.filter((apartment) => apartment.label === inputValue)[0];
 
   return {
     ...option,

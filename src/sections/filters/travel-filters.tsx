@@ -1,14 +1,14 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback } from 'react';
 
-import Button from "@mui/material/Button";
-import Divider from "@mui/material/Divider";
-import Stack, { StackProps } from "@mui/material/Stack";
+import Button from '@mui/material/Button';
+import Divider from '@mui/material/Divider';
+import Stack, { StackProps } from '@mui/material/Stack';
 
-import Iconify from "@/components/iconify";
+import Iconify from '@/components/iconify';
 
 // import FilterTime from './filter-time';
 // import FilterBedrooms from './filter-bedrooms'; // Renamed from FilterGuests
-import FilterLocation from "./filter-location";
+import FilterLocation from './filter-location';
 
 // ----------------------------------------------------------------------
 
@@ -26,7 +26,7 @@ export default function Filters({ sx, ...other }: StackProps) {
 
   const handleIncrementRooms = useCallback(
     (room?: string) => {
-      if (room === "bathrooms") {
+      if (room === 'bathrooms') {
         setRooms({ ...rooms, bathrooms: rooms.bathrooms + 1 });
       } else {
         setRooms({ ...rooms, bedrooms: rooms.bedrooms + 1 });
@@ -37,7 +37,7 @@ export default function Filters({ sx, ...other }: StackProps) {
 
   const handleDecreaseRooms = useCallback(
     (room?: string) => {
-      if (room === "bathrooms") {
+      if (room === 'bathrooms') {
         setRooms({ ...rooms, bathrooms: rooms.bathrooms - 1 });
       } else {
         setRooms({ ...rooms, bedrooms: rooms.bedrooms - 1 });
@@ -49,9 +49,9 @@ export default function Filters({ sx, ...other }: StackProps) {
   return (
     <Stack
       spacing={2.5}
-      alignItems={{ md: "center" }}
-      direction={{ xs: "column", md: "row" }}
-      sx={{ p: 4, borderRadius: 2, bgcolor: "background.neutral", ...sx }}
+      alignItems={{ md: 'center' }}
+      direction={{ xs: 'column', md: 'row' }}
+      sx={{ p: 4, borderRadius: 2, bgcolor: 'background.neutral', ...sx }}
       {...other}
     >
       <FilterLocation />

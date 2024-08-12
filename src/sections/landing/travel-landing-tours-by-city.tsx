@@ -1,21 +1,21 @@
-import Box from "@mui/material/Box";
-import Link from "@mui/material/Link";
-import Paper from "@mui/material/Paper";
-import Stack from "@mui/material/Stack";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import Container from "@mui/material/Container";
-import Typography from "@mui/material/Typography";
+import Box from '@mui/material/Box';
+import Link from '@mui/material/Link';
+import Paper from '@mui/material/Paper';
+import Stack from '@mui/material/Stack';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
 
-import { paths } from "@/routes/paths";
-import { RouterLink } from "@/routes/components";
+import { paths } from '@/routes/paths';
+import { RouterLink } from '@/routes/components';
 
-import { useResponsive } from "@/hooks/use-responsive";
+import { useResponsive } from '@/hooks/use-responsive';
 
-import Iconify from "@/components/iconify";
-import TextMaxLine from "@/components/text-max-line";
+import Iconify from '@/components/iconify';
+import TextMaxLine from '@/components/text-max-line';
 
-import { ITourProps } from "@/types/tour";
+import { ITourProps } from '@/types/tour';
 
 // ----------------------------------------------------------------------
 
@@ -24,7 +24,7 @@ type Props = {
 };
 
 export default function TravelLandingToursByCity({ tours }: Props) {
-  const mdUp = useResponsive("up", "md");
+  const mdUp = useResponsive('up', 'md');
 
   const viewAllBtn = (
     <Button
@@ -47,16 +47,16 @@ export default function TravelLandingToursByCity({ tours }: Props) {
       <Stack
         direction="row"
         alignItems="center"
-        justifyContent={{ xs: "center", md: "space-between" }}
+        justifyContent={{ xs: 'center', md: 'space-between' }}
         sx={{
           mb: { xs: 8, md: 10 },
-          textAlign: { xs: "center", md: "unset" },
+          textAlign: { xs: 'center', md: 'unset' },
         }}
       >
         <Stack spacing={3}>
           <Typography variant="h2">Tours By City</Typography>
 
-          <Typography sx={{ color: "text.secondary" }}>
+          <Typography sx={{ color: 'text.secondary' }}>
             {`Our Featured Tours can help you find the trip that's perfect for you!`}
           </Typography>
         </Stack>
@@ -67,12 +67,12 @@ export default function TravelLandingToursByCity({ tours }: Props) {
       <Box
         sx={{
           gap: 3,
-          display: "grid",
+          display: 'grid',
           gridTemplateColumns: {
-            xs: "repeat(1, 1fr)",
-            sm: "repeat(2, 1fr)",
-            md: "repeat(3, 1fr)",
-            lg: "repeat(4, 1fr)",
+            xs: 'repeat(1, 1fr)',
+            sm: 'repeat(2, 1fr)',
+            md: 'repeat(3, 1fr)',
+            lg: 'repeat(4, 1fr)',
           },
         }}
       >
@@ -100,22 +100,17 @@ function TourItem({ tour }: TourItemProps) {
   const { coverUrl, location } = tour;
 
   return (
-    <Link
-      component={RouterLink}
-      href={paths.units}
-      color="inherit"
-      underline="none"
-    >
+    <Link component={RouterLink} href={paths.units} color="inherit" underline="none">
       <Paper
         variant="outlined"
         sx={{
           p: 3,
           borderRadius: 2,
-          cursor: "pointer",
-          bgcolor: "background.default",
-          "&:hover": {
+          cursor: 'pointer',
+          bgcolor: 'background.default',
+          '&:hover': {
             boxShadow: (theme) => theme.customShadows.z24,
-            bgcolor: "background.paper",
+            bgcolor: 'background.paper',
           },
         }}
       >
@@ -127,7 +122,7 @@ function TourItem({ tour }: TourItemProps) {
               {location}
             </TextMaxLine>
 
-            <Typography variant="body2" sx={{ color: "text.secondary" }}>
+            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
               196 Place
             </Typography>
           </Stack>

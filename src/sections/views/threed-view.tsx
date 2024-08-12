@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
-import { useBoolean } from "@/hooks/use-boolean";
-import ThreeScene from "../landing/threed-page";
-import { Box } from "@mui/system";
+import { useBoolean } from '@/hooks/use-boolean';
+import ThreeScene from '../landing/threed-page';
+import { Box } from '@mui/system';
 
 // ----------------------------------------------------------------------
 
@@ -20,8 +20,8 @@ export default function ThreeDView() {
   }, [loading]);
 
   return (
-    <Box sx={{ position: "relative" }}>
-      <ThreeScene />
-    </Box>
+    <Box sx={{ position: 'relative' }}>
+    <ThreeScene />
+  </Box>
   );
 }

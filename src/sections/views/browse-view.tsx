@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import Box from "@mui/material/Box";
-import { alpha } from "@mui/material/styles";
-import Container from "@mui/material/Container";
+import Box from '@mui/material/Box';
+import { alpha } from '@mui/material/styles';
+import Container from '@mui/material/Container';
 
 // _travelPosts, _testimonials
-import { _tours } from "@/_mock";
+import { _tours } from '@/_mock';
 
 // import TravelNewsletter from '../travel-newsletter';
-import TravelFilters from "../filters/travel-filters";
-import TravelLandingHero from "../landing/travel-landing-hero";
-import TravelLandingIntroduce from "../landing/travel-landing-introduce";
-import BrowseApartment from "@/app/browseApartment/page";
-import ThreeScene from "../landing/threed-page";
+import TravelFilters from '../filters/travel-filters';
+import TravelLandingHero from '../landing/travel-landing-hero';
+import TravelLandingIntroduce from '../landing/travel-landing-introduce';
+import BrowseApartment from '@/app/browseApartment/page';
+import ThreeScene from '../landing/threed-page';
 // import TravelTestimonial from '../testimonial/travel-testimonial';
 // import TravelLandingSummary from '../landing/travel-landing-summary';
 // import TravelLandingIntroduce from '../landing/travel-landing-introduce';
@@ -26,23 +26,24 @@ import ThreeScene from "../landing/threed-page";
 export default function BrowseApartments() {
   return (
     <>
-      <Box sx={{ position: "relative" }}>
+      <Box sx={{ position: 'relative' }}>
+
         <Container
           sx={{
             mb: { md: 10 },
             left: { md: 0 },
             right: { md: 0 },
             bottom: { md: 0 },
-            mx: { md: "auto" },
+            mx: { md: 'auto' },
             pt: { xs: 3, md: 0 },
-            position: { md: "absolute" },
+            position: { md: 'absolute' },
           }}
         >
           <TravelFilters
             sx={{
-              color: { md: "common.white" },
+              color: { md: 'common.white' },
               bgcolor: (theme) => ({
-                xs: "background.neutral",
+                xs: 'background.neutral',
                 md: alpha(theme.palette.common.white, 0.08),
               }),
             }}
@@ -50,7 +51,7 @@ export default function BrowseApartments() {
         </Container>
       </Box>
 
-      {<ThreeScene />}
+      { <ThreeScene /> }
 
       {/* <TravelLandingSummary />
 

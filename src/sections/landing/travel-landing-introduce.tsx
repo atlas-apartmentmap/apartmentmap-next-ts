@@ -1,42 +1,42 @@
-import { useRef } from "react";
+import { useRef } from 'react';
 
-import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import Stack from "@mui/material/Stack";
-import Container from "@mui/material/Container";
-import Typography from "@mui/material/Typography";
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import Stack from '@mui/material/Stack';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
 
-import { useResponsive } from "@/hooks/use-responsive";
-import { useBoundingClientRect } from "@/hooks/use-bounding-client-rect";
+import { useResponsive } from '@/hooks/use-responsive';
+import { useBoundingClientRect } from '@/hooks/use-bounding-client-rect';
 
-import Image from "@/components/image";
-import Iconify from "@/components/iconify";
-import SvgColor from "@/components/svg-color";
+import Image from '@/components/image';
+import Iconify from '@/components/iconify';
+import SvgColor from '@/components/svg-color';
 
 // ----------------------------------------------------------------------
 
 const SUMMARY = [
   {
-    title: "Professional Real Estate Services",
-    description: "Licensed Real Estate Agents",
-    icon: "/assets/icons/ic_popularity.svg",
+    title: 'Professional Real Estate Services',
+    description: 'Licensed Real Estate Agents',
+    icon: '/assets/icons/ic_popularity.svg',
   },
   {
-    title: "Customer Satisfaction",
-    description: "Improved Customer Experience",
-    icon: "/assets/icons/ic_reputation.svg",
+    title: 'Customer Satisfaction',
+    description: 'Improved Customer Experience',
+    icon: '/assets/icons/ic_reputation.svg',
   },
   {
-    title: "Secure Transaction Management",
-    description: "Management of Secure Transactions between buyers and sellers",
-    icon: "/assets/icons/ic_secure_payment.svg",
+    title: 'Secure Transaction Management',
+    description: 'Management of Secure Transactions between buyers and sellers', 
+    icon: '/assets/icons/ic_secure_payment.svg',
   },
 ];
 
 // ----------------------------------------------------------------------
 
 export default function TravelLandingIntroduce() {
-  const mdUp = useResponsive("up", "md");
+  const mdUp = useResponsive('up', 'md');
 
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -56,25 +56,21 @@ export default function TravelLandingIntroduce() {
           spacing={3}
           sx={{
             maxWidth: 480,
-            mx: { xs: "auto", md: "unset" },
-            textAlign: { xs: "center", md: "unset" },
+            mx: { xs: 'auto', md: 'unset' },
+            textAlign: { xs: 'center', md: 'unset' },
           }}
         >
-          <Typography variant="h2">
-            Explore A New Way to Transact Real Estate
-          </Typography>
+          <Typography variant="h2">Explore A New Way to Transact Real Estate</Typography>
 
-          <Typography sx={{ color: "text.secondary" }}>
-            Interested in an apartment? Let us know and when its available we
-            will contact you. Interested in getting monthly updates on the price
-            of your propery? We can keep you informed.
+          <Typography sx={{ color: 'text.secondary' }}>
+            Improving the off market transaction experience for buyers and sellers
           </Typography>
         </Stack>
       </Container>
 
       <Box
         sx={{
-          position: "relative",
+          position: 'relative',
           my: { xs: 8, md: 10 },
           ml: { md: `${offsetLeft}px` },
         }}
@@ -126,14 +122,14 @@ export default function TravelLandingIntroduce() {
         />
       </Box>
 
-      <Container sx={{ textAlign: "center" }}>
+      <Container sx={{ textAlign: 'center' }}>
         <Box
           sx={{
-            display: "grid",
+            display: 'grid',
             gap: { xs: 8, md: 3 },
             gridTemplateColumns: {
-              xs: "repeat(1, 1fr)",
-              md: "repeat(3, 1fr)",
+              xs: 'repeat(1, 1fr)',
+              md: 'repeat(3, 1fr)',
             },
           }}
         >
@@ -145,14 +141,14 @@ export default function TravelLandingIntroduce() {
                   mb: 3,
                   width: 64,
                   height: 64,
-                  mx: "auto",
-                  color: "primary.main",
+                  mx: 'auto',
+                  color: 'primary.main',
                 }}
               />
 
               <Typography variant="h5">{value.title}</Typography>
 
-              <Typography variant="body2" sx={{ color: "text.secondary" }}>
+              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                 {value.description}
               </Typography>
             </Stack>

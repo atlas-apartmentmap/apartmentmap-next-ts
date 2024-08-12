@@ -1,17 +1,13 @@
-import Box from "@mui/material/Box";
-import Link from "@mui/material/Link";
-import { Theme, SxProps, useTheme } from "@mui/material/styles";
+import Box from '@mui/material/Box';
+import Link from '@mui/material/Link';
+import { Theme, SxProps, useTheme } from '@mui/material/styles';
 
-import { RouterLink } from "@/routes/components";
+import { RouterLink } from '@/routes/components';
 
-import Image from "../../image";
-import { NavProducts } from "../types";
-import TextMaxLine from "../../text-max-line";
-import Carousel, {
-  useCarousel,
-  CarouselDots,
-  CarouselArrows,
-} from "../../carousel";
+import Image from '../../image';
+import { NavProducts } from '../types';
+import TextMaxLine from '../../text-max-line';
+import Carousel, { useCarousel, CarouselDots, CarouselArrows } from '../../carousel';
 
 // ----------------------------------------------------------------------
 
@@ -21,11 +17,7 @@ type Props = {
   sx?: SxProps<Theme>;
 };
 
-export default function MenuProducts({
-  products,
-  displayProduct = 8,
-  sx,
-}: Props) {
+export default function MenuProducts({ products, displayProduct = 8, sx }: Props) {
   const theme = useTheme();
 
   const carousel = useCarousel({
@@ -37,18 +29,18 @@ export default function MenuProducts({
   });
 
   return (
-    <Box sx={{ position: "relative", pt: 2, ...sx }}>
+    <Box sx={{ position: 'relative', pt: 2, ...sx }}>
       <CarouselArrows
         filled
         onNext={carousel.onNext}
         onPrev={carousel.onPrev}
         leftButtonProps={{
-          size: "small",
-          sx: { top: "calc(50% - 36px)", left: -8 },
+          size: 'small',
+          sx: { top: 'calc(50% - 36px)', left: -8 },
         }}
         rightButtonProps={{
-          size: "small",
-          sx: { top: "calc(50% - 36px)", right: -8 },
+          size: 'small',
+          sx: { top: 'calc(50% - 36px)', right: -8 },
         }}
       >
         <Carousel ref={carousel.carouselRef} {...carousel.carouselSettings}>
@@ -61,10 +53,10 @@ export default function MenuProducts({
               underline="none"
               sx={{
                 px: 1,
-                display: "block",
-                transition: theme.transitions.create("all"),
-                "&:hover": {
-                  color: "primary.main",
+                display: 'block',
+                transition: theme.transitions.create('all'),
+                '&:hover': {
+                  color: 'primary.main',
                 },
               }}
             >
@@ -76,10 +68,7 @@ export default function MenuProducts({
                 sx={{ borderRadius: 1, mb: 1 }}
               />
 
-              <TextMaxLine
-                variant="caption"
-                sx={{ fontWeight: "fontWeightSemiBold" }}
-              >
+              <TextMaxLine variant="caption" sx={{ fontWeight: 'fontWeightSemiBold' }}>
                 {product.name}
               </TextMaxLine>
             </Link>
