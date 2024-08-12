@@ -20,9 +20,11 @@ function Dot({ size = 24, color = "primary", sx }: Props) {
         zIndex: 10,
         position: "absolute",
         borderRadius: "50%",
-        background: (theme) =>
+        background: (theme: { palette: { [x: string]: {
+          light: any; main: any; 
+}; }; }) =>
           `linear-gradient(to bottom, ${theme.palette[color].light}, ${theme.palette[color].main})`,
-        boxShadow: (theme) =>
+        boxShadow: (theme: { palette: { [x: string]: { darker: any; }; }; }) =>
           `inset 0px -2px 4px ${theme.palette[color].darker}`,
         ...sx,
       }}
