@@ -18,6 +18,7 @@ interface Props extends IProps {
 export default function MotionViewport({
   children,
   disableAnimatedMobile = true,
+  ...other
 }: Props) {
   const smDown = useResponsive('down', 'sm');
 
