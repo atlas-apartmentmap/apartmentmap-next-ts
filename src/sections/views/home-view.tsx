@@ -5,7 +5,7 @@ import { alpha } from '@mui/material/styles';
 import Container from '@mui/material/Container';
 
 // _travelPosts, _testimonials
-// import { _tours } from '@/_mock';
+import { _tours } from '@/_mock';
 
 // import TravelNewsletter from '../travel-newsletter';
 import TravelFilters from '../filters/travel-filters';
@@ -37,15 +37,6 @@ export default function HomeView() {
             position: { md: 'absolute' },
           }}
         >
-          <TravelFilters
-            sx={{
-              color: { md: 'common.white' },
-              bgcolor: (theme) => ({
-                xs: 'background.neutral',
-                md: alpha(theme.palette.common.white, 0.08),
-              }),
-            }}
-          />
         </Container>
       </Box>
 

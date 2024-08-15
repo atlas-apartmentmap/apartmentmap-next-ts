@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Box, Button, Typography, IconButton, Stack, Select, MenuItem, FormControl, InputLabel, SelectChangeEvent } from '@mui/material';
+import { Box, Button, Typography, IconButton, Stack, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import { useStarredProperties } from '@/context/StarredPropertiesContext';
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
@@ -13,6 +13,8 @@ interface ThreeDSidePanelProps {
   setOverviewMode: (mode: boolean) => void;
   toggleSplitView: () => void;
   isSplitView: boolean;
+  selectedModel: string | null;
+  onModelChange: (model: string) => void;
 }
 
 const ThreeDSidePanel: React.FC<ThreeDSidePanelProps> = ({
@@ -24,8 +26,17 @@ const ThreeDSidePanel: React.FC<ThreeDSidePanelProps> = ({
   setOverviewMode,
   toggleSplitView,
   isSplitView,
+  selectedModel,
+  onModelChange,
 }) => {
   const { addProperty, starredProperties, removeProperty } = useStarredProperties();
+
+  // Default to "Sky Tower" if no model is selected
+  useEffect(() => {
+    if (!selectedModel) {
+      onModelChange('skytower.glb');
+    }
+  }, [selectedModel, onModelChange]);
 
   const uniqueKey = selectedObjectName && selectedFloorPlan ? `${selectedObjectName}-${selectedFloorPlan}` : null;
 
@@ -51,18 +62,13 @@ const ThreeDSidePanel: React.FC<ThreeDSidePanelProps> = ({
     onFloorPlanChange(event.target.value);
   };
 
-  // Reset the star icon when floor plan is changed
-  useEffect(() => {
-    if (uniqueKey && isPropertyStarred) {
-      removeProperty(uniqueKey); // Remove the starred status when floor plan changes
-    }
-  }, [selectedFloorPlan]);
+  const handleModelChange = (event: SelectChangeEvent<string>) => {
+    onModelChange(event.target.value);
+    setOverviewMode(true); // Set to overview mode when the model changes
+  };
 
   return (
     <Box sx={{ p: 2 }}>
-      <Typography variant="h6" gutterBottom>
-        3D Viewer
-      </Typography>
       <Stack spacing={2} direction="row">
         <Button variant="contained" color="primary" onClick={toggleSplitView}>
           {isSplitView ? 'Close Split View' : 'Split View'}
@@ -71,6 +77,21 @@ const ThreeDSidePanel: React.FC<ThreeDSidePanelProps> = ({
           Overview
         </Button>
       </Stack>
+      
+      <FormControl fullWidth variant="outlined" sx={{ mt: 2 }}>
+        <InputLabel id="model-select-label">Select Model</InputLabel>
+        <Select
+          labelId="model-select-label"
+          value={selectedModel || 'skytower.glb'}  // Default to "Sky Tower"
+          onChange={handleModelChange}
+          label="Select Model"
+          onClose={() => setOverviewMode(true)} // Close the dropdown when a selection is made
+        >
+          <MenuItem value="skytower.glb">Sky Tower</MenuItem>
+          <MenuItem value="spire.glb">Spire</MenuItem>
+          <MenuItem value="festival.glb">Festival</MenuItem>
+        </Select>
+      </FormControl>
 
       {selectedObjectName && !overviewMode ? (
         <>
@@ -107,9 +128,9 @@ const ThreeDSidePanel: React.FC<ThreeDSidePanelProps> = ({
           )}
         </>
       ) : (
-        overviewMode && (
+        overviewMode && selectedModel && (
           <Box sx={{ mt: 2 }}>
-            <img src={`/assets/floorplate/sky-tower/SkyTowerOverview.jpg`} alt="Sky Tower Overview" style={{ width: '100%' }} />
+            <img src={`/assets/floorplate/${selectedModel.replace('.glb', '')}.jpg`} alt="Model Overview" style={{ width: '100%' }} />
           </Box>
         )
       )}

@@ -113,11 +113,11 @@ export const pageLinks = [
 
 export const navConfig = [
   { title: 'Home', path: '/' },
-  { title: 'Browse', path: '/browse' },
+  {title: 'Browse', path: '/browse'},
   // {title: 'Vision', path: '/vision'},
-  { title: '3D Viewer', path: '/3DViewer' },
-  { title: 'Map', path: '/maps' },
-  { title: 'My Properties', path: '/myProperties' },
+  {title: '3D Viewer', path: '/3DViewer'},
+  {title: 'Map', path: '/maps'},
+  {title: 'My Properties', path: '/myProperties'},
   // {title: 'BrowseSkyTower', path: '/browse/skytower'},
 
   // { title: 'Test', path: '/' },

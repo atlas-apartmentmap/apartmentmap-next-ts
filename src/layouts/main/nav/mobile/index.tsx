@@ -1,23 +1,23 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
-import List from "@mui/material/List";
-import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
-import Drawer from "@mui/material/Drawer";
-import IconButton from "@mui/material/IconButton";
+import List from '@mui/material/List';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import Drawer from '@mui/material/Drawer';
+import IconButton from '@mui/material/IconButton';
 
-import { paths } from "@/routes/paths";
-import { usePathname } from "@/routes/hooks";
+import { paths } from '@/routes/paths';
+import { usePathname } from '@/routes/hooks';
 
-import { useBoolean } from "@/hooks/use-boolean";
+import { useBoolean } from '@/hooks/use-boolean';
 
-import Logo from "@/components/logo";
-import Iconify from "@/components/iconify";
-import Scrollbar from "@/components/scrollbar";
+import Logo from '@/components/logo';
+import Iconify from '@/components/iconify';
+import Scrollbar from '@/components/scrollbar';
 
-import NavList from "./nav-list";
-import { NavProps } from "../types";
-import { NAV } from "../../../config-layout";
+import NavList from './nav-list';
+import { NavProps } from '../types';
+import { NAV } from '../../../config-layout';
 
 // ----------------------------------------------------------------------
 
@@ -35,7 +35,7 @@ export default function NavMobile({ data }: NavProps) {
 
   return (
     <>
-      <IconButton onClick={mobileOpen.onTrue} sx={{ ml: 1, color: "inherit" }}>
+      <IconButton onClick={mobileOpen.onTrue} sx={{ ml: 1, color: 'inherit' }}>
         <Iconify icon="carbon:menu" />
       </IconButton>
 
@@ -57,6 +57,7 @@ export default function NavMobile({ data }: NavProps) {
               <NavList key={list.title} data={list} />
             ))}
           </List>
+
         </Scrollbar>
       </Drawer>
     </>

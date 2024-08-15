@@ -1,13 +1,13 @@
-import Collapse from "@mui/material/Collapse";
+import Collapse from '@mui/material/Collapse';
 
-import { useActiveLink } from "@/routes/hooks/use-active-link";
+import { useActiveLink } from '@/routes/hooks/use-active-link';
 
-import { useBoolean } from "@/hooks/use-boolean";
+import { useBoolean } from '@/hooks/use-boolean';
 
-import { NavSectionVertical } from "@/components/nav-section";
+import { NavSectionVertical } from '@/components/nav-section';
 
-import NavItem from "./nav-item";
-import { NavListProps } from "../types";
+import NavItem from './nav-item';
+import { NavListProps } from '../types';
 
 // ----------------------------------------------------------------------
 
@@ -27,7 +27,7 @@ export default function NavList({ data }: NavListProps) {
         //
         active={active}
         hasChild={!!data.children}
-        externalLink={data.path.includes("http")}
+        externalLink={data.path.includes('http')}
       />
 
       {!!data.children && (

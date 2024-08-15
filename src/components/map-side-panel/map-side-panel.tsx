@@ -1,8 +1,8 @@
-// src/components/map-side-panel/map-side-panel.tsx
 import React from 'react';
 import { Box, Typography, Button, Stack, Accordion, AccordionSummary, AccordionDetails, ListItemButton } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { apartments } from '@/assets/data/apartments';
+import { useModelContext } from '@/context/ModelContext'; // Import the ModelContext
 
 interface MapSidePanelProps {
   onToggleLandVisibility: () => void;
@@ -10,6 +10,20 @@ interface MapSidePanelProps {
 }
 
 const MapSidePanel: React.FC<MapSidePanelProps> = ({ onToggleLandVisibility, setHoveredBuilding }) => {
+  const { setSelectedModel } = useModelContext(); // Use the context to set the selected model
+
+  const handleModelSelect = (building: string) => {
+    const normalizedBuilding = normalizeName(building);
+    if (normalizedBuilding === 'skytower') {
+      setSelectedModel('skytower.glb');
+    } else if (normalizedBuilding === 'spire') {
+      setSelectedModel('spire.glb');
+    }
+      else if(normalizedBuilding === 'festival') {
+        setSelectedModel('festival.glb');
+      }
+  };
+
   return (
     <Box sx={{ p: 2 }}>
       <Typography variant="h6" gutterBottom>
@@ -30,22 +44,21 @@ const MapSidePanel: React.FC<MapSidePanelProps> = ({ onToggleLandVisibility, set
           <AccordionDetails>
             <Box sx={{ width: '100%' }}>
               {apartments.map((apartment) => (
-                <a
+                <ListItemButton
                   key={apartment.code}
-                  href={`/3DViewer?building=${encodeURIComponent(apartment.label)}`}
+                  onMouseEnter={() => setHoveredBuilding(normalizeName(apartment.label))}
+                  onMouseLeave={() => setHoveredBuilding(null)}
+                  href="/3DViewer" // Use href to navigate to the 3DViewer page
+                  onClick={() => handleModelSelect(apartment.label)} // Update the context before navigation
+                  component="a" // Make ListItemButton behave like a link
                   style={{ textDecoration: 'none' }}
                 >
-                  <ListItemButton
-                    onMouseEnter={() => setHoveredBuilding(normalizeName(apartment.label))}
-                    onMouseLeave={() => setHoveredBuilding(null)}
-                  >
-                    <Box>
-                      <Typography variant="subtitle1">{apartment.label}</Typography>
-                      <Typography variant="body2">{apartment.address}</Typography>
-                      <Typography variant="body2">{apartment.postcode}</Typography>
-                    </Box>
-                  </ListItemButton>
-                </a>
+                  <Box>
+                    <Typography variant="subtitle1">{apartment.label}</Typography>
+                    <Typography variant="body2">{apartment.address}</Typography>
+                    <Typography variant="body2">{apartment.postcode}</Typography>
+                  </Box>
+                </ListItemButton>
               ))}
             </Box>
           </AccordionDetails>
@@ -55,7 +68,16 @@ const MapSidePanel: React.FC<MapSidePanelProps> = ({ onToggleLandVisibility, set
   );
 };
 
-// Function to normalize names
-const normalizeName = (name: string) => name.replace(/\s+/g, '').toLowerCase();
+// Function to normalize names for matching with 3D models
+const normalizeName = (name: string) => {
+  const lowerName = name.toLowerCase();
+
+  if (lowerName.includes('spire residences')) return 'spire';
+  if (lowerName.includes('sky tower')) return 'skytower';
+  if (lowerName.includes('festival towers')) return 'festival';
+  // Add more custom mappings as needed
+
+  return lowerName.replace(/\s+/g, '');
+};
 
 export default MapSidePanel;

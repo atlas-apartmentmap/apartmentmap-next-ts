@@ -1,15 +1,15 @@
-import { forwardRef } from "react";
+import { forwardRef } from 'react';
 
-import Box from "@mui/material/Box";
-import Link from "@mui/material/Link";
-import { alpha, styled } from "@mui/material/styles";
-import ListItemButton from "@mui/material/ListItemButton";
+import Box from '@mui/material/Box';
+import Link from '@mui/material/Link';
+import { alpha, styled } from '@mui/material/styles';
+import ListItemButton from '@mui/material/ListItemButton';
 
-import { RouterLink } from "@/routes/components";
+import { RouterLink } from '@/routes/components';
 
-import Iconify from "@/components/iconify";
+import Iconify from '@/components/iconify';
 
-import { NavItemProps, NavItemStateProps } from "../types";
+import { NavItemProps, NavItemStateProps } from '../types';
 
 // ----------------------------------------------------------------------
 
@@ -24,7 +24,7 @@ const NavItem = forwardRef<HTMLDivElement, NavItemProps>(
         {hasChild && (
           <Iconify
             width={16}
-            icon={open ? "carbon:chevron-down" : "carbon:chevron-right"}
+            icon={open ? 'carbon:chevron-down' : 'carbon:chevron-right'}
             sx={{ ml: 0.75 }}
           />
         )}
@@ -56,7 +56,7 @@ export default NavItem;
 // ----------------------------------------------------------------------
 
 const StyledNavItem = styled(ListItemButton, {
-  shouldForwardProp: (prop) => prop !== "active",
+  shouldForwardProp: (prop) => prop !== 'active',
 })<NavItemStateProps>(({ active, theme }) => ({
   ...theme.typography.body1,
   paddingLeft: theme.spacing(3),
@@ -67,9 +67,6 @@ const StyledNavItem = styled(ListItemButton, {
   ...(active && {
     color: theme.palette.primary.main,
     fontWeight: theme.typography.fontWeightSemiBold,
-    backgroundColor: alpha(
-      theme.palette.primary.main,
-      theme.palette.action.selectedOpacity
-    ),
+    backgroundColor: alpha(theme.palette.primary.main, theme.palette.action.selectedOpacity),
   }),
 }));

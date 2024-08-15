@@ -1,4 +1,4 @@
-
+import { getData } from '@/api/sql/api';
 import MyPropertiesView from '@/sections/views/my-properties-view';
 
 // ----------------------------------------------------------------------
@@ -8,8 +8,8 @@ export const metadata = {
 };
 
 export default async function MyProperties() {
-  // const res = await getData();
-  // console.log(res);
+  const res = await getData();
+  console.log(res);
 
   return <MyPropertiesView />;
 }

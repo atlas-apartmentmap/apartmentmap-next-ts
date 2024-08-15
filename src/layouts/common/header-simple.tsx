@@ -1,20 +1,20 @@
-import Link from "@mui/material/Link";
-import Stack from "@mui/material/Stack";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import { useTheme } from "@mui/material/styles";
+import Link from '@mui/material/Link';
+import Stack from '@mui/material/Stack';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import { useTheme } from '@mui/material/styles';
 
-import { RouterLink } from "@/routes/components";
+import { RouterLink } from '@/routes/components';
 
-import { useOffSetTop } from "@/hooks/use-off-set-top";
+import { useOffSetTop } from '@/hooks/use-off-set-top';
 
-import { bgBlur } from "@/theme/css";
+import { bgBlur } from '@/theme/css';
 
-import Logo from "@/components/logo";
+import Logo from '@/components/logo';
 
-import { HEADER } from "../config-layout";
-import HeaderShadow from "./header-shadow";
-import SettingsButton from "./settings-button";
+import { HEADER } from '../config-layout';
+import HeaderShadow from './header-shadow';
+import SettingsButton from './settings-button';
 
 // ----------------------------------------------------------------------
 
@@ -31,7 +31,7 @@ export default function HeaderSimple() {
             xs: HEADER.H_MOBILE,
             md: HEADER.H_DESKTOP,
           },
-          transition: theme.transitions.create(["height"], {
+          transition: theme.transitions.create(['height'], {
             easing: theme.transitions.easing.easeInOut,
             duration: theme.transitions.duration.shorter,
           }),
@@ -56,12 +56,7 @@ export default function HeaderSimple() {
         >
           <SettingsButton />
 
-          <Link
-            href="/"
-            component={RouterLink}
-            color="inherit"
-            sx={{ typography: "subtitle2" }}
-          >
+          <Link href="/" component={RouterLink} color="inherit" sx={{ typography: 'subtitle2' }}>
             Need help?
           </Link>
         </Stack>

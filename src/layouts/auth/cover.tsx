@@ -1,11 +1,11 @@
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import { alpha, useTheme } from "@mui/material/styles";
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import { alpha, useTheme } from '@mui/material/styles';
 
-import { useResponsive } from "@/hooks/use-responsive";
+import { useResponsive } from '@/hooks/use-responsive';
 
-import Image from "@/components/image";
-import Carousel, { useCarousel, CarouselDots } from "@/components/carousel";
+import Image from '@/components/image';
+import Carousel, { useCarousel, CarouselDots } from '@/components/carousel';
 
 // ----------------------------------------------------------------------
 
@@ -15,14 +15,10 @@ type AuthCarouselProps = {
   children: React.ReactNode;
 };
 
-export default function AuthCoverLayout({
-  title,
-  images,
-  children,
-}: AuthCarouselProps) {
+export default function AuthCoverLayout({ title, images, children }: AuthCarouselProps) {
   const theme = useTheme();
 
-  const mdUp = useResponsive("up", "md");
+  const mdUp = useResponsive('up', 'md');
 
   const carousel = useCarousel({
     autoplaySpeed: 5000,
@@ -38,8 +34,8 @@ export default function AuthCoverLayout({
         right: 0,
         zIndex: 99,
         bottom: 80,
-        mx: "auto",
-        position: "absolute",
+        mx: 'auto',
+        position: 'absolute',
       },
     }),
   });
@@ -55,7 +51,7 @@ export default function AuthCoverLayout({
             theme.palette.common.black
           } 75%)`}
           sx={{
-            "& img": { minHeight: "100vh", width: 1 },
+            '& img': { minHeight: '100vh', width: 1 },
           }}
         />
       ))}
@@ -63,10 +59,10 @@ export default function AuthCoverLayout({
   );
 
   return (
-    <Box sx={{ minHeight: 1, display: "flex" }}>
+    <Box sx={{ minHeight: 1, display: 'flex' }}>
       <Box
         sx={{
-          mx: "auto",
+          mx: 'auto',
           flexShrink: 0,
           py: { xs: 5, md: 8 },
           px: { xs: 2, md: 10 },
@@ -80,9 +76,9 @@ export default function AuthCoverLayout({
         <Box
           sx={{
             flexGrow: 1,
-            overflow: "hidden",
-            position: "relative",
-            bgcolor: "common.black",
+            overflow: 'hidden',
+            position: 'relative',
+            bgcolor: 'common.black',
           }}
         >
           <Typography
@@ -93,10 +89,10 @@ export default function AuthCoverLayout({
               bottom: 80,
               width: 1,
               zIndex: 10,
-              textAlign: "center",
-              position: "absolute",
-              color: "common.white",
-              whiteSpace: "pre-line",
+              textAlign: 'center',
+              position: 'absolute',
+              color: 'common.white',
+              whiteSpace: 'pre-line',
             }}
           >
             {title}

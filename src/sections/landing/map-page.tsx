@@ -1,18 +1,31 @@
-import React, { useState, useEffect } from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, useGLTF } from '@react-three/drei';
-import * as THREE from 'three';
+import { OrbitControls } from '@react-three/drei';
 import MapSidePanel from '@/components/map-side-panel/map-side-panel';
 import MapScene from '@/components/map-scene/map-scene';
+import { useModelContext } from '@/context/ModelContext';
 
 const CBDViewer: React.FC = () => {
-  // State for land visibility and hover state
+  const { setSelectedModel } = useModelContext(); // Use the context to set the selected model
   const [showLand, setShowLand] = useState(true);
   const [hoveredBuilding, setHoveredBuilding] = useState<string | null>(null);
 
-  // Toggle land visibility handler
   const toggleLandVisibility = () => {
     setShowLand(!showLand);
+  };
+
+  const handleModelSelect = (building: string) => {
+    // Normalize building names and set the model accordingly
+    const normalizedBuilding = building.replace(/\s+/g, '').toLowerCase();
+    if (normalizedBuilding === 'skytower') {
+      setSelectedModel('skytower.glb');
+    } else if (normalizedBuilding === 'spire') {
+      setSelectedModel('spire.glb');
+    } else if (normalizedBuilding === 'festival') {
+      setSelectedModel('festival.glb');
+    }
   };
 
   return (

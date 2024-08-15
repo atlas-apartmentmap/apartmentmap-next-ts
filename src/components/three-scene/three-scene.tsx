@@ -1,16 +1,15 @@
-// src/components/three-scene/ThreeScene.tsx
-
 import React, { useEffect, useRef } from 'react';
 import { useGLTF } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 
 interface ThreeSceneProps {
+  modelPath: string; // Path to the GLB model file
   onObjectClick: (objectName: string) => void;
 }
 
-const ThreeScene: React.FC<ThreeSceneProps> = ({ onObjectClick }) => {
-  const { scene } = useGLTF('/assets/models/model.glb');
+const ThreeScene: React.FC<ThreeSceneProps> = ({ modelPath, onObjectClick }) => {
+  const { scene } = useGLTF(modelPath); // Load the selected model
   const raycaster = useRef(new THREE.Raycaster());
   const mouse = useRef(new THREE.Vector2());
   const { camera, gl } = useThree();
@@ -35,7 +34,7 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ onObjectClick }) => {
     return () => {
       gl.domElement.removeEventListener('click', handleClick);
     };
-  }, [gl]);
+  }, [gl, scene]);
 
   return (
     <>

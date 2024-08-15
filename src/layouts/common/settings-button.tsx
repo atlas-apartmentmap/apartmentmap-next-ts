@@ -1,13 +1,13 @@
-import { m } from "framer-motion";
+import { m } from 'framer-motion';
 
-import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-import { Theme, SxProps } from "@mui/material/styles";
-import Badge, { badgeClasses } from "@mui/material/Badge";
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import { Theme, SxProps } from '@mui/material/styles';
+import Badge, { badgeClasses } from '@mui/material/Badge';
 
-import Iconify from "@/components/iconify";
-import { varHover } from "@/components/animate";
-import { useSettingsContext } from "@/components/settings";
+import Iconify from '@/components/iconify';
+import { varHover } from '@/components/animate';
+import { useSettingsContext } from '@/components/settings';
 
 // ----------------------------------------------------------------------
 
@@ -38,7 +38,7 @@ export default function SettingsButton({ sx }: Props) {
         }}
         transition={{
           duration: 12,
-          ease: "linear",
+          ease: 'linear',
           repeat: Infinity,
         }}
       >

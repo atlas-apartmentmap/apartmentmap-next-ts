@@ -1,3 +1,5 @@
+import { getData } from '@/api/sql/api';
+
 import VisionView from '@/sections/views/vision-view';
 
 // ----------------------------------------------------------------------
@@ -7,8 +9,8 @@ export const metadata = {
 };
 
 export default async function VisionPage() {
-  // const res = await getData();
-  // console.log(res);
+  const res = await getData();
+  console.log(res);
 
   return <VisionView />;
 }

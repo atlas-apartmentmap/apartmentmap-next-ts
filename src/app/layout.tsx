@@ -10,6 +10,7 @@ import ProgressBar from '@/components/progress-bar';
 import { MotionLazy } from '@/components/animate/motion-lazy';
 import { SettingsDrawer, SettingsProvider } from '@/components/settings';
 import { StarredPropertiesProvider } from '@/context/StarredPropertiesContext';
+import { ModelProvider } from '@/context/ModelContext'; // Import ModelProvider
 
 // ----------------------------------------------------------------------
 
@@ -55,7 +56,9 @@ export default function RootLayout({ children }: Props) {
                 <ProgressBar />
                 <SettingsDrawer />
                 <StarredPropertiesProvider>
-                  {children}
+                  <ModelProvider> {/* Wrap children with ModelProvider */}
+                    {children}
+                  </ModelProvider>
                 </StarredPropertiesProvider>
               </MotionLazy>
             </ThemeProvider>

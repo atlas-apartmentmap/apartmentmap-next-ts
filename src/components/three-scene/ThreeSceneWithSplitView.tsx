@@ -1,9 +1,16 @@
 import React, { useRef, useEffect } from 'react';
-import { useFrame, useThree } from '@react-three/fiber';
+import { useThree } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
 
-const buildingParts = [
+// Define types for building parts
+interface BuildingPart {
+  name: string;
+  increment: number;
+}
+
+// Define building parts for each model
+const skyTowerParts: BuildingPart[] = [
   { name: 'ReceptionGround', increment: 0 },
   { name: 'Downtown', increment: 1 },
   { name: 'Uptown', increment: 2 },
@@ -15,18 +22,42 @@ const buildingParts = [
   { name: 'Rooftop', increment: 8 },
 ];
 
+const spireParts: BuildingPart[] = [
+  { name: 'Reception', increment: 0 },
+  { name: 'Residential', increment: 1 },
+  { name: 'Rooftop', increment: 2 },
+];
+
+const festivalParts: BuildingPart[] = [
+  { name: 'Reception', increment: 0 },
+  { name: 'Floors 4-29', increment: 1 },
+  { name: 'Floors 30-40', increment: 2 },
+  { name: 'Rooftop', increment: 3 },
+];
+
 interface ThreeSceneWithSplitViewProps {
+  modelPath: string; // Path to the GLB model file
   onObjectClick: (name: string) => void;
   onObjectHover: (name: string | null) => void;
   isSplitView: boolean;
 }
 
-const ThreeSceneWithSplitView: React.FC<ThreeSceneWithSplitViewProps> = ({ onObjectClick, onObjectHover, isSplitView }) => {
+const ThreeSceneWithSplitView: React.FC<ThreeSceneWithSplitViewProps> = ({ modelPath, onObjectClick, onObjectHover, isSplitView }) => {
   const { scene, camera, gl } = useThree();
   const clickableObjects = useRef<THREE.Object3D[]>([]);
   const raycaster = useRef(new THREE.Raycaster());
   const mouse = useRef(new THREE.Vector2());
-  const gltf = useGLTF('/assets/models/model.glb');
+  const gltf = useGLTF(modelPath); // Load the selected model
+
+  // Determine the correct building parts based on the model path
+  let buildingParts: BuildingPart[] = [];
+  if (modelPath.includes('skytower')) {
+    buildingParts = skyTowerParts;
+  } else if (modelPath.includes('spire')) {
+    buildingParts = spireParts;
+  } else if (modelPath.includes('festival')) {
+    buildingParts = festivalParts;
+  }
 
   useEffect(() => {
     const { scene: gltfScene } = gltf;
@@ -104,7 +135,7 @@ const ThreeSceneWithSplitView: React.FC<ThreeSceneWithSplitViewProps> = ({ onObj
       });
       animateCamera({ x: 0, y: 400, z: 400 }, 1000);
     }
-  }, [isSplitView]);
+  }, [isSplitView, buildingParts]);
 
   const animateMove = (object: THREE.Object3D, targetPosition: THREE.Vector3, duration: number) => {
     const startPosition = object.position.clone();
@@ -149,7 +180,5 @@ const ThreeSceneWithSplitView: React.FC<ThreeSceneWithSplitViewProps> = ({ onObj
     </>
   );
 };
-
-useGLTF.preload('/assets/models/model.glb');
 
 export default ThreeSceneWithSplitView;

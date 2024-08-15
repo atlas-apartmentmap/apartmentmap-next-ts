@@ -1,4 +1,4 @@
-import HomeView from "@/sections/views/home-view";
+import HomeView from '@/sections/views/home-view';
 
 // ----------------------------------------------------------------------
 

@@ -1,13 +1,13 @@
-import { m } from "framer-motion";
-import Link from "next/link";
+import { m } from 'framer-motion';
+import Link from 'next/link';
 
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import { Theme, SxProps } from "@mui/material/styles";
-import Badge, { badgeClasses } from "@mui/material/Badge";
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import { Theme, SxProps } from '@mui/material/styles';
+import Badge, { badgeClasses } from '@mui/material/Badge';
 
-import { varHover } from "@/components/animate";
-import { useSettingsContext } from "@/components/settings";
+import { varHover } from '@/components/animate';
+import { useSettingsContext } from '@/components/settings';
 
 // ----------------------------------------------------------------------
 
@@ -31,19 +31,20 @@ export default function LoginButton({ sx }: Props) {
         ...sx,
       }}
     >
-      <Link href="/auth/login-cover" passHref>
-        <Button
-          component={m.button}
-          whileTap={{ scale: 0.95 }}
-          whileHover={{ scale: 1.05 }}
-          variants={varHover(1.05)}
-          color="primary"
-          aria-label="login"
-          sx={sx}
-        >
-          Login
-        </Button>
-      </Link>
+
+        <Link href="/auth/login-cover" passHref>
+          <Button
+            component={m.button}
+            whileTap={{ scale: 0.95 }}
+            whileHover={{ scale: 1.05 }}
+            variants={varHover(1.05)}
+            color="primary"
+            aria-label="login"
+            sx={sx}
+          >
+            Login
+          </Button>
+        </Link>
     </Badge>
   );
 }
