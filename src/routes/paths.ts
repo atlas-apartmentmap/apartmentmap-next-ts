@@ -11,7 +11,7 @@ export const paths = {
   page500: '/error/500',
   signUp: '/sign-up',
   browse: '/browse',
-  browseSkyTower: '/browse/skytower',
+  // browseSkyTower: '/browse/skytower',
   vision: '/vision',
   maps: '/maps',
   myProperties: '/myProperties',

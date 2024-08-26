@@ -16,6 +16,7 @@ const MapSidePanel: React.FC<MapSidePanelProps> = ({ onToggleLandVisibility, set
     const normalizedBuilding = normalizeName(building);
     if (normalizedBuilding === 'skytower') {
       setSelectedModel('skytower.glb');
+      
     } else if (normalizedBuilding === 'spire') {
       setSelectedModel('spire.glb');
     }

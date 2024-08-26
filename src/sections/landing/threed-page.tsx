@@ -16,12 +16,13 @@ const ThreePage: React.FC = () => {
   const [selectedFloorPlan, setSelectedFloorPlan] = useState<string | null>(null);
   const [overviewMode, setOverviewMode] = useState<boolean>(true);
   const [isSplitView, setIsSplitView] = useState<boolean>(false);
+  const [hoveredStack, setHoveredStack] = useState<string | null>(null); // New state for hovered stack
   const [canvasKey, setCanvasKey] = useState<number>(0); // Force Canvas to reset
 
   // Set default model to Sky Tower if no model is selected
   useEffect(() => {
     if (!selectedModel) {
-      setSelectedModel('skytower.glb');
+      setSelectedModel('spire.glb');
     }
   }, [selectedModel, setSelectedModel]);
 
@@ -65,6 +66,8 @@ const ThreePage: React.FC = () => {
             onObjectClick={handleObjectClick} 
             onObjectHover={handleObjectHover}
             isSplitView={isSplitView} 
+            hoveredStack={hoveredStack}  // Pass the hovered stack state
+            selectedStack={hoveredStack}  // Pass the selected stack state
           />
           <OrbitControls
             enableDamping
@@ -89,7 +92,9 @@ const ThreePage: React.FC = () => {
           toggleSplitView={toggleSplitView}
           isSplitView={isSplitView}
           selectedModel={selectedModel}
-          onModelChange={handleModelChange}  // Pass the model change handler
+          onModelChange={handleModelChange}  
+          setHoveredStack={setHoveredStack}  // Correctly pass the setter for hovered stack
+          setSelectedStack={setHoveredStack}  // Pass the setter for selected stack
         />
       </div>
     </div>

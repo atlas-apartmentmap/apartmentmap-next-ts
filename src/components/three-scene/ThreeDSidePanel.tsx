@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Box, Button, Typography, IconButton, Stack, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { Box, Button, Typography, Stack, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, IconButton } from '@mui/material';
 import { useStarredProperties } from '@/context/StarredPropertiesContext';
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
@@ -15,6 +15,8 @@ interface ThreeDSidePanelProps {
   isSplitView: boolean;
   selectedModel: string | null;
   onModelChange: (model: string) => void;
+  setHoveredStack: (stackNumber: string | null) => void;
+  setSelectedStack: (stackNumber: string | null) => void;
 }
 
 const ThreeDSidePanel: React.FC<ThreeDSidePanelProps> = ({
@@ -28,13 +30,15 @@ const ThreeDSidePanel: React.FC<ThreeDSidePanelProps> = ({
   isSplitView,
   selectedModel,
   onModelChange,
+  setHoveredStack,
+  setSelectedStack,
 }) => {
   const { addProperty, starredProperties, removeProperty } = useStarredProperties();
+  const [selectedStack, setStackSelection] = useState<string | null>(null); // Local stack selection state
 
-  // Default to "Sky Tower" if no model is selected
   useEffect(() => {
     if (!selectedModel) {
-      onModelChange('skytower.glb');
+      onModelChange('spire.glb');
     }
   }, [selectedModel, onModelChange]);
 
@@ -50,11 +54,11 @@ const ThreeDSidePanel: React.FC<ThreeDSidePanelProps> = ({
         name: uniqueKey,
         floorPlans,
         details: `Details about ${selectedObjectName}`,
-        selectedFloorPlan, // Save the current selected floor plan
+        selectedFloorPlan,
       };
       addProperty(property);
     } else if (uniqueKey && isPropertyStarred) {
-      removeProperty(uniqueKey); // Unstar the property if it's already starred
+      removeProperty(uniqueKey);
     }
   };
 
@@ -64,7 +68,13 @@ const ThreeDSidePanel: React.FC<ThreeDSidePanelProps> = ({
 
   const handleModelChange = (event: SelectChangeEvent<string>) => {
     onModelChange(event.target.value);
-    setOverviewMode(true); // Set to overview mode when the model changes
+    setOverviewMode(true);
+  };
+
+  const handleStackChange = (event: SelectChangeEvent<string>) => {
+    const stackNumber = event.target.value;
+    setStackSelection(stackNumber);
+    setSelectedStack(stackNumber);  // Update parent component's selected stack state
   };
 
   return (
@@ -76,16 +86,22 @@ const ThreeDSidePanel: React.FC<ThreeDSidePanelProps> = ({
         <Button variant="contained" color="secondary" onClick={() => setOverviewMode(true)}>
           Overview
         </Button>
+        <Stack spacing={2} direction="row" alignItems="center">
+          <IconButton color="primary" onClick={handleStarClick}>
+            {isPropertyStarred ? <StarIcon /> : <StarBorderIcon />}
+          </IconButton>
+        </Stack>
       </Stack>
-      
+
+      {/* Model Selection */}
       <FormControl fullWidth variant="outlined" sx={{ mt: 2 }}>
         <InputLabel id="model-select-label">Select Model</InputLabel>
         <Select
           labelId="model-select-label"
-          value={selectedModel || 'skytower.glb'}  // Default to "Sky Tower"
+          value={selectedModel || 'spire.glb'}
           onChange={handleModelChange}
           label="Select Model"
-          onClose={() => setOverviewMode(true)} // Close the dropdown when a selection is made
+          onClose={() => setOverviewMode(true)}
         >
           <MenuItem value="skytower.glb">Sky Tower</MenuItem>
           <MenuItem value="spire.glb">Spire</MenuItem>
@@ -95,35 +111,33 @@ const ThreeDSidePanel: React.FC<ThreeDSidePanelProps> = ({
 
       {selectedObjectName && !overviewMode ? (
         <>
-          <Typography variant="h6" gutterBottom>
-            Selected Object: {selectedObjectName}
-          </Typography>
-          <Stack spacing={2} direction="row" alignItems="center">
-            <IconButton
-              color="primary"
-              onClick={handleStarClick}
-            >
-              {isPropertyStarred ? <StarIcon /> : <StarBorderIcon />}
-            </IconButton>
-          </Stack>
+          {/* Stack Selection */}
           <FormControl fullWidth variant="outlined" sx={{ mt: 2 }}>
-            <InputLabel id="floor-plan-select-label">Floor Plan</InputLabel>
+            <InputLabel id="stack-select-label">Select Stack</InputLabel>
             <Select
-              labelId="floor-plan-select-label"
-              value={selectedFloorPlan ?? ''}
-              onChange={handleFloorPlanChange}
-              label="Floor Plan"
+              labelId="stack-select-label"
+              value={selectedStack ?? ''}
+              onChange={handleStackChange}
+              label="Select Stack"
+              onMouseEnter={(event) => setHoveredStack((event.target as HTMLInputElement).value)}
+              onMouseLeave={() => setHoveredStack(null)}
             >
-              {floorPlans.map((plan, index) => (
-                <MenuItem key={index} value={plan}>
-                  Floor Plan {index + 1}
+              {['01', '02', '03', '04', '05', '06', '07', '08', '09', '10'].map((stackNumber) => (
+                <MenuItem key={stackNumber} value={stackNumber}>
+                  Stack {stackNumber}
                 </MenuItem>
               ))}
             </Select>
           </FormControl>
-          {selectedFloorPlan && (
+
+          {/* Display Floor Plan based on selected stack */}
+          {selectedStack && (
             <Box sx={{ mt: 2 }}>
-              <img src={selectedFloorPlan} alt="Selected Floor Plan" style={{ width: '100%' }} />
+              <img 
+                src={`/assets/floorplans/spire/plan_${selectedStack}.jpg`} 
+                alt={`Floor Plan for Stack ${selectedStack}`} 
+                style={{ width: '100%' }} 
+              />
             </Box>
           )}
         </>

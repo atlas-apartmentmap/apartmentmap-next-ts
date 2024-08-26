@@ -3,71 +3,51 @@ import { useThree } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
 
-// Define types for building parts
-interface BuildingPart {
-  name: string;
-  increment: number;
-}
-
-// Define building parts for each model
-const skyTowerParts: BuildingPart[] = [
-  { name: 'ReceptionGround', increment: 0 },
-  { name: 'Downtown', increment: 1 },
-  { name: 'Uptown', increment: 2 },
-  { name: 'Mezanine1', increment: 3 },
-  { name: 'Skycity', increment: 4 },
-  { name: 'Mezanine2', increment: 5 },
-  { name: 'Skyrise', increment: 6 },
-  { name: 'HorizonCollection', increment: 7 },
-  { name: 'Rooftop', increment: 8 },
-];
-
-const spireParts: BuildingPart[] = [
-  { name: 'Reception', increment: 0 },
-  { name: 'Residential', increment: 1 },
-  { name: 'Rooftop', increment: 2 },
-];
-
-const festivalParts: BuildingPart[] = [
-  { name: 'Reception', increment: 0 },
-  { name: 'Floors 4-29', increment: 1 },
-  { name: 'Floors 30-40', increment: 2 },
-  { name: 'Rooftop', increment: 3 },
-];
-
 interface ThreeSceneWithSplitViewProps {
-  modelPath: string; // Path to the GLB model file
+  modelPath: string;
   onObjectClick: (name: string) => void;
   onObjectHover: (name: string | null) => void;
   isSplitView: boolean;
+  hoveredStack: string | null;
+  selectedStack: string | null;
 }
 
-const ThreeSceneWithSplitView: React.FC<ThreeSceneWithSplitViewProps> = ({ modelPath, onObjectClick, onObjectHover, isSplitView }) => {
+const ThreeSceneWithSplitView: React.FC<ThreeSceneWithSplitViewProps> = ({
+  modelPath,
+  onObjectClick,
+  onObjectHover,
+  isSplitView,
+  hoveredStack,
+  selectedStack,
+}) => {
   const { scene, camera, gl } = useThree();
   const clickableObjects = useRef<THREE.Object3D[]>([]);
   const raycaster = useRef(new THREE.Raycaster());
   const mouse = useRef(new THREE.Vector2());
+  const originalColors = useRef<Map<string, THREE.Color>>(new Map()); // Store original colors
+  const clonedMaterials = useRef<Map<string, THREE.Material>>(new Map()); // Store cloned materials
   const gltf = useGLTF(modelPath); // Load the selected model
 
-  // Determine the correct building parts based on the model path
-  let buildingParts: BuildingPart[] = [];
-  if (modelPath.includes('skytower')) {
-    buildingParts = skyTowerParts;
-  } else if (modelPath.includes('spire')) {
-    buildingParts = spireParts;
-  } else if (modelPath.includes('festival')) {
-    buildingParts = festivalParts;
-  }
-
+  // Load and process model
   useEffect(() => {
     const { scene: gltfScene } = gltf;
     gltfScene.position.y = -75; // Adjust the position of the building
+
     gltfScene.traverse((child) => {
       if ((child as THREE.Mesh).isMesh) {
         clickableObjects.current.push(child);
+
+        const mesh = child as THREE.Mesh;
+        if (mesh.material instanceof THREE.MeshStandardMaterial || mesh.material instanceof THREE.MeshBasicMaterial) {
+          originalColors.current.set(mesh.name, mesh.material.color.clone()); // Store original color
+        }
+
         (child as THREE.Mesh).userData.originalPosition = child.position.clone();
         (child as THREE.Mesh).castShadow = true;
         (child as THREE.Mesh).receiveShadow = true;
+
+        // Log object names to verify structure
+        console.log(`Loaded Object: ${mesh.name}`);
       }
     });
     scene.add(gltfScene);
@@ -77,9 +57,11 @@ const ThreeSceneWithSplitView: React.FC<ThreeSceneWithSplitViewProps> = ({ model
     };
   }, [gltf, scene]);
 
+  // Handle object clicking
   useEffect(() => {
     const handleClick = (event: MouseEvent) => {
       event.preventDefault();
+
       const canvasBounds = gl.domElement.getBoundingClientRect();
       mouse.current.x = ((event.clientX - canvasBounds.left) / canvasBounds.width) * 2 - 1;
       mouse.current.y = -((event.clientY - canvasBounds.top) / canvasBounds.height) * 2 + 1;
@@ -93,6 +75,15 @@ const ThreeSceneWithSplitView: React.FC<ThreeSceneWithSplitViewProps> = ({ model
       }
     };
 
+    gl.domElement.addEventListener('click', handleClick);
+
+    return () => {
+      gl.domElement.removeEventListener('click', handleClick);
+    };
+  }, [gl, camera, onObjectClick]);
+
+  // Handle object hovering
+  useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
       const canvasBounds = gl.domElement.getBoundingClientRect();
       mouse.current.x = ((event.clientX - canvasBounds.left) / canvasBounds.width) * 2 - 1;
@@ -103,73 +94,66 @@ const ThreeSceneWithSplitView: React.FC<ThreeSceneWithSplitViewProps> = ({ model
 
       if (intersects.length > 0) {
         const objectName = intersects[0].object.name;
-        onObjectHover(objectName);
+        onObjectHover(objectName); // Call hover event
       } else {
-        onObjectHover(null);
+        onObjectHover(null); // Reset hover if no object intersected
       }
     };
 
-    gl.domElement.addEventListener('click', handleClick);
     gl.domElement.addEventListener('mousemove', handleMouseMove);
 
     return () => {
-      gl.domElement.removeEventListener('click', handleClick);
       gl.domElement.removeEventListener('mousemove', handleMouseMove);
     };
-  }, [gl, camera, onObjectClick, onObjectHover]);
+  }, [gl, camera, onObjectHover]);
 
+  // Highlighting logic for selected and hovered stacks
   useEffect(() => {
-    if (isSplitView) {
-      clickableObjects.current.forEach((object) => {
-        const part = buildingParts.find(part => object.name.includes(part.name));
-        if (part) {
-          const newPosition = object.userData.originalPosition.clone();
-          newPosition.y += part.increment * 25;
-          animateMove(object, newPosition, 1000);
+    // Reset all objects to their original color
+    clickableObjects.current.forEach((object) => {
+      const mesh = object as THREE.Mesh;
+      if (mesh.material instanceof THREE.MeshStandardMaterial || mesh.material instanceof THREE.MeshBasicMaterial) {
+        const originalColor = originalColors.current.get(mesh.name);
+        if (originalColor) {
+          mesh.material.color.copy(originalColor); // Restore the original color
         }
-      });
-      animateCamera({ x: 0, y: 600, z: 600 }, 1000);
-    } else {
-      clickableObjects.current.forEach((object) => {
-        animateMove(object, object.userData.originalPosition, 1000);
-      });
-      animateCamera({ x: 0, y: 400, z: 400 }, 1000);
-    }
-  }, [isSplitView, buildingParts]);
-
-  const animateMove = (object: THREE.Object3D, targetPosition: THREE.Vector3, duration: number) => {
-    const startPosition = object.position.clone();
-    const startTime = performance.now();
-
-    function animate() {
-      const elapsedTime = performance.now() - startTime;
-      if (elapsedTime < duration) {
-        object.position.lerpVectors(startPosition, targetPosition, elapsedTime / duration);
-        requestAnimationFrame(animate);
-      } else {
-        object.position.copy(targetPosition);
       }
-    }
+    });
 
-    animate();
-  };
+    const highlightStack = (stack: string | null, color: number) => {
+      if (stack) {
+        clickableObjects.current.forEach((object) => {
+          const objectName = object.name;
+          const regex = new RegExp(`^Unit_\\d{1,3}${stack}$`); // Match the unit naming convention
 
-  const animateCamera = (targetPosition: { x: number, y: number, z: number }, duration: number) => {
-    const startPosition = camera.position.clone();
-    const startTime = performance.now();
+          if (regex.test(objectName)) {
+            const mesh = object as THREE.Mesh;
 
-    function animate() {
-      const elapsedTime = performance.now() - startTime;
-      if (elapsedTime < duration) {
-        camera.position.lerpVectors(startPosition, new THREE.Vector3(targetPosition.x, targetPosition.y, targetPosition.z), elapsedTime / duration);
-        requestAnimationFrame(animate);
-      } else {
-        camera.position.set(targetPosition.x, targetPosition.y, targetPosition.z);
+            // Clone the material if not already cloned
+            if (!clonedMaterials.current.has(mesh.name)) {
+              const clonedMaterial = (mesh.material as THREE.Material).clone();
+              mesh.material = clonedMaterial;
+              clonedMaterials.current.set(mesh.name, clonedMaterial);
+            }
+
+            console.log(`Highlighting Object: ${objectName} with color: ${color.toString(16)}`); // Log objects being highlighted
+
+            if (mesh.material instanceof THREE.MeshStandardMaterial || mesh.material instanceof THREE.MeshBasicMaterial) {
+              mesh.material.color.setHex(color); // Apply highlight color
+            }
+          }
+        });
       }
-    }
+    };
 
-    animate();
-  };
+    // Highlight selected stack in yellow
+    highlightStack(selectedStack, 0xffff00);
+
+    // Highlight hovered stack in yellow (but not if it's the selected stack)
+    if (hoveredStack !== selectedStack) {
+      highlightStack(hoveredStack, 0xffff00);
+    }
+  }, [hoveredStack, selectedStack]);
 
   return (
     <>

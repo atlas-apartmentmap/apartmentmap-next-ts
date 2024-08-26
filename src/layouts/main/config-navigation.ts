@@ -28,7 +28,7 @@ export const pageLinks = [
       // { title: 'Landing', path: paths.travel.root },
       { title: 'Units', path: paths.units },
       { title: 'Unit', path: paths.unit },
-      { title: 'Browse', path: "/browse/skytower" },
+      // { title: 'Browse', path: "/browse/skytower" },
       // { title: 'Vision', path: paths.vision },
       // { title: 'Checkout', path: paths.travel.checkout },
       // { title: 'Order Completed', path: paths.travel.orderCompleted },
